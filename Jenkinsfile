@@ -1,8 +1,7 @@
 def label = "buildpod-${UUID.randomUUID().toString()}"
 podTemplate(label: label, containers: [
-    containerTemplate(name: 'maven', image: 'maven:maven:3.6.3-jdk-11-slim', ttyEnabled: true, command: 'cat'),
-    containerTemplate(name: 'docker', image: 'docker', command: 'cat', ttyEnabled: true),
-    containerTemplate(name: 'kubectl', image: 'lachlanevenson/k8s-kubectl:v1.8.8', command: 'cat', ttyEnabled: true)
+   
+    containerTemplate(name: 'docker', image: 'docker', command: 'cat', ttyEnabled: true)
   ],
 volumes: [
     hostPathVolume(mountPath: '/root/.m2/repository', hostPath: '/root/.m2/repository'),
@@ -18,11 +17,11 @@ volumes: [
         def gitCommitCount = sh(script: "git rev-list --all --count", returnStdout: true)
         def regURL = "registry.gitlab.com/unisys-fed/appserv-demos/ice18-tc"
         def regNamespace = "registry.gitlab.com/unisys-fed/appserv-demos/ice18-tc"
-        def artifactID = sh(script: "grep '<artifactId>' pom.xml | head -n 1 | sed -e 's/artifactId//g' | sed -e 's/\\s*[<>/]*//g' | tr -d '\\r\\n'", returnStdout: true)
-        def POMversion = sh(script: "grep '<version>' pom.xml | head -n 1 | sed -e 's/version//g' | sed -e 's/\\s*[<>/]*//g' | tr -d '\\r\\n'", returnStdout: true)
+  //      def artifactID = sh(script: "grep '<artifactId>' pom.xml | head -n 1 | sed -e 's/artifactId//g' | sed -e 's/\\s*[<>/]*//g' | tr -d '\\r\\n'", returnStdout: true)
+ //       def POMversion = sh(script: "grep '<version>' pom.xml | head -n 1 | sed -e 's/version//g' | sed -e 's/\\s*[<>/]*//g' | tr -d '\\r\\n'", returnStdout: true)
  
         try {
-        notifySlack()
+ //      notifySlack()
  //       stage('Maven project') {
  //           container('maven') {
  //               stage('Validate project') {
